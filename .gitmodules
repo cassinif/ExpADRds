@@ -1,0 +1,3 @@
+[submodule "external/phisplit"]
+	path = external/phisplit
+	url = https://github.com/caliarim/phisplit.git
