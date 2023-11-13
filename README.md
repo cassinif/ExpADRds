@@ -12,7 +12,7 @@ reproduce the numerical examples of the article.
 ## Software
 
 You can directly download the zip archive of the latest complete version
-[here](https://github.com/cassinif/ExpADRds/releases/download/v1.0/ExpADRds-1.0.zip).
+[here](https://github.com/cassinif/ExpADRds/releases/download/v1.1/ExpADRds-1.1.zip).
 
 Alternatively, since the repository makes use of git submodules, you can
 obtain all the relevant sources by executing
