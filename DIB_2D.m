@@ -29,8 +29,10 @@ a5v = 1.5;
 
 method = 'ETD2RKds'; % ETD2RKds, ETD2RK, Lawson2b, ETD-RDP-IF, DIRK23, RK32
 compute_err = true; % if true, measure error against precomputed reference solution
-                     % else plot u component at time T
-tol_matlab = 5e-5; % needed if using matlab ODE suite
+                    % else plot u component at time T
+compute_indic = false; % if true compute indicators (relevant if compute_err=false
+                       % and method='ETD2RKds')
+tol_matlab = 9e-4; % needed if using matlab ODE suite
 tol_phiks = 1e-3; % needed if using ETD2RK
 nsteps = 1250; % needed if not using matlab ODE suite
 tau = T/nsteps;
@@ -91,9 +93,15 @@ u0 = [U0{1}(:);U0{2}(:)];
 fprintf('Method: %s\n',method)
 switch method
   case 'ETD2RKds'
-    tic
-    U = etd2rkds(U0,A,F,g,nsteps,tau);
-    wctime = toc;
+    if compute_indic
+      tic
+      [U,Umean,Uinc] = etd2rkds(U0,A,F,g,nsteps,tau,x);
+      wctime = toc;
+    else
+      tic
+      U = etd2rkds(U0,A,F,g,nsteps,tau);
+      wctime = toc;
+    end
   case 'ETD2RK'
     tic
     U = etd2rk(U0,A,F,g,nsteps,tau,tol_phiks);
@@ -139,6 +147,22 @@ else
   ylabel('x_2')
   colorbar
   drawnow
+end
+
+if compute_indic
+  trange = 0:tau:T;
+  figure;
+  plot(trange,Umean,'r-')
+  xlabel('t')
+  ylabel('<U_n>')
+  title('Spatial mean')
+  legend(sprintf('tau=%.2e',tau))
+  figure;
+  semilogy(trange(2:end),Uinc,'r-')
+  xlabel('t')
+  ylabel('||U_{n+1}-U_n||_F')
+  title('Time increment')
+  legend(sprintf('tau=%.2e',tau))
 end
 
 fprintf('Wall-clock time: %.2f s\n',wctime)

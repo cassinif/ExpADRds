@@ -24,7 +24,7 @@ av = 0.7695;
 
 method = 'ETD2RKds'; % ETD2RKds, ETD2RK, Lawson2b, ETD-RDP-IF, DIRK23, RK32
 compute_err = true; % if true, measure error against precomputed reference solution
-                     % else plot u component at time T
+                    % else plot u component at time T
 tol_matlab = 1e-2; % needed if using matlab ODE suite
 tol_phiks = 1e-5; % needed if using ETD2RK
 nsteps = 50; % needed if not using matlab ODE suite
