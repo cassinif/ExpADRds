@@ -40,7 +40,7 @@ for mu = 1:d
   D1{mu}(1,1:2) = [0,0];
   D1{mu}(n(mu),(n(mu)-1):n(mu)) = [0,0];
   A_sp{1}{mu} = -alphau*D1{mu} + deltau*D2{mu};
-  A_sp{2}{mu} = -alphav*D2{mu} + deltav*D2{mu};
+  A_sp{2}{mu} = -alphav*D1{mu} + deltav*D2{mu};
   A{1}{mu} = full(A_sp{1}{mu});
   A{2}{mu} = full(A_sp{2}{mu});
 end
